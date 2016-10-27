@@ -3,7 +3,8 @@ html
   head
     title= 'fireball'
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css', rel='stylesheet', media='screen')
+    link(href='https://fonts.googleapis.com/css?family=Rationale', rel='stylesheet')
+    link(rel='stylesheet', href='/stylesheets/foundation.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     if (error && error.length > 0)
@@ -11,8 +12,26 @@ html
       h4.error-msg= error
       br
 
+    .top-bar
+      ul.dropdown.menu.text-center(data-dropdown-menu='')
+        .top-bar-left
+          li
+            a(href='#') William Namen
+        .top-bar-right
+          li
+            a(href='#') Meteors
+          if (!user)
+            li
+              a(href="/login") Login
+            li
+              a(href="/register") Register
+          if (user)
+            li
+              a(href="/logout") Logout  
+
     block content
 
 
-  script(src='http://code.jquery.com/jquery.js')
-  script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+    script(src='/javascripts/vendor/jquery.js')
+    script(src='/javascripts/vendor/what-input.js')
+    script(src='/javascripts/vendor/foundation.js')
