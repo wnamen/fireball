@@ -15,3 +15,15 @@ li {
 a {
   color: #BC7A20;
 }
+
+.meteor-item .columns {
+  color: white;
+  display: inline-block;
+
+}
+
+h4 {
+  color: white;
+  font-family: 'Rationale', sans-serif;
+
+}
