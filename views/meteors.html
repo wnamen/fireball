@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>fireball</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Rationale" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/foundation.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+  </head>
+  <body>
+    <div class="top-bar">
+      <ul data-dropdown-menu="" class="dropdown menu text-center">
+        <div class="top-bar-left">
+          <li><a href="/">William Namen</a></li>
+        </div>
+        <div class="top-bar-right">
+          <li><a href="/meteors">Meteors</a></li>
+          <li><a href="/signin">Login</a></li>
+          <li><a href="/signup">Register</a></li>
+        </div>
+      </ul>
+    </div>
+
+    <br>
+    <div id="meteor-titles" class="row">
+      <div class="large-3 columns">
+        <h4>Name</h4>
+      </div>
+      <div class="large-3 columns">
+        <h4>Mass</h4>
+      </div>
+      <div class="large-3 columns">
+        <h4>Year</h4>
+      </div>
+      <div class="large-3 columns">
+        <h4>Coordinates</h4>
+      </div>
+    </div>
+
+    <hr>
+    <section id="meteor-section">
+      <div id='meteors' class="grid">
+        <script id='meteor-template' type='text/x-handlebars-template'>
+          <div class="row">
+          <div class="meteor-item">
+            <div class="large-3 columns">
+            <p>{{name}}</p>
+          </div>
+            <div class="large-3 columns">
+            <p>{{mass}}</p>
+          </div>
+            <div class="large-3 columns">
+            <p>{{year}}</p>
+          </div>
+            <div class="large-3 columns">
+            <p>{{geolocation.coordinates}}</p>
+            </div>
+          </div>
+        </div>
+
+          <hr>
+        </script>
+      </div>
+    </section>
+
+    <script src="/javascripts/vendor/jquery.js"></script>
+    <script src="/javascripts/vendor/what-input.js"></script>
+    <script src="/javascripts/vendor/foundation.js"></script>
+    <script src="/javascripts/meteors.js"></script>
+  </body>
+</html>
