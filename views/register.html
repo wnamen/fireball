@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>fireball</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Rationale" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/foundation.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <div class="top-bar">
+      <ul data-dropdown-menu="" class="dropdown menu text-center">
+        <div class="top-bar-left">
+          <li><a href="/">William Namen</a></li>
+        </div>
+        <div class="top-bar-right">
+          <li><a href="/meteors">Meteors</a></li>
+          <li><a href="/signin">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="container">
+      <h1>Sign up today!</h1>
+      <p class="lead">Say something worthwhile here.</p><br/>
+      <form role="form" action="/register" method="post" style="max-width: 300px;">
+        <div class="form-group">
+          <input type="text" name="username" placeholder="Enter Username" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Password" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        <a href="/"><button type="button" class="btn btn-primary">Cancel</button></a>
+      </form>
+    </div>
+
+    <script src="/javascripts/vendor/jquery.js"></script>
+    <script src="/javascripts/vendor/what-input.js"></script>
+    <script src="/javascripts/vendor/foundation.js"></script>
+  </body>
+</html>

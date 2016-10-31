@@ -7,6 +7,7 @@ var Account = new Schema({
     password: String
 });
 
+var options = ({missingPasswordError: "Wrong password"});
 Account.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Account', Account);
