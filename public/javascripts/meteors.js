@@ -25,6 +25,7 @@ $(document).ready(function() {
 function handleMeteors(meteors){
 
   meteors.forEach(function(meteor) {
+    meteor.year = meteor.year.slice(0,4)
     renderMeteor(meteor);
   });
 }
