@@ -89,34 +89,9 @@
 		);
 	}
 
-	// function createPoint(radius, segments, data) {
-	//
-		// var x = parseInt(data[0][0])+180;
-		// var y = parseInt((data[0][1])-84)*-1;
-		//
-		// var position = latLongToVector3(y, x, 600, 2);
-	//
-	// 	var cubeGeometry = new THREE.CubeGeometry(60,60,60);
-	// 	var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xffff00 });
-	// 	var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
-	//
-	// 	cube.position = position;
-	// 	cube.lookAt( new THREE.Vector3(0,0,0) );
-	// 	cube.name = 'cube';
-	//
-	// 	new THREE.Mesh(
-	// 		new THREE.SphereGeometry(radius, segments, segments),
-	// 			new THREE.MeshFaceMaterial( cube ));
-	//
-	// 	scene.add(cube);
-	// }
-	//
 	function latLongToVector3(lat, lon, radius, heigth) {
 			var phi = (lat)*Math.PI/180;
 			var theta = (lon-180)*Math.PI/180;
-
-			// console.log(phi);
-			// console.log(theta);
 
 			var x = -(radius+heigth) * Math.cos(phi) * Math.cos(theta);
 			var y = (radius+heigth) * Math.sin(phi);
@@ -129,45 +104,29 @@
 	// simple function that converts the density data to the markers on screen
 	// the height of each marker is relative to the density.
 	function createPoint(radius, segments, data) {
-			// console.log(data)
-	// 		// the geometry that will contain all our cubes
+		console.log(data);
+			// the geometry that will contain all our cubes
 			var geom = new THREE.Geometry();
-	// 		// material to use for each of our elements. Could use a set of materials to
-	// 		// add colors relative to the density. Not done here.
-			// var cubeMat = new THREE.MeshLambertMaterial({color: 0x000000,opacity:0.6, emissive:0xffffff});
-	// 		// for (var i = 0 ; i < data.length-1 ; i++) {
-	//
-	// 				//get the data, and set the offset, we need to do this since the x,y coordinates
-	// 				//from the data aren't in the correct format
-					var x = parseInt(data[0])+180;
-					var y = parseInt((data[1])-84)*-1;
 
-					// console.log(data[0][0]);
-	//
-	// 				// calculate the position where we need to start the cube
-					var position = latLongToVector3(y, x, 0, .5);
-					// console.log(position);
+				//get the data, and set the offset, we need to do this since the x,y coordinates
+				//from the data aren't in the correct format
+				var x = parseInt(data[0]);
+				var y = parseInt(data[1]);
 
-	// 				// create the cube
-					var cubeGeometry = new THREE.CubeGeometry(.01,.01,.01);
-					var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xBC7A20 });
-					var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
-	//
-	// 				// position the cube correctly
-					cube.position = position;
-					cube.lookAt( new THREE.Vector3(0,0,0) );
-					cube.name = 'cube';
-					// cube.rotation.y = 6;
+				// calculate the position where we need to start the cube
+				var position = latLongToVector3(x, y, 0, .5);
 
-	//
-	// 				// merge with main model
-					// THREE.GeometryUtils.merge(geom,cube);
-	// 		// }
-	//
-	// 		// create a new mesh, containing all the other meshes.
-			// var total = new THREE.Mesh(geom,new THREE.MeshFaceMaterial());
-	// 		console.log(cube);
-	// 		// and add the total mesh to the scene
+				// create the cube
+				var cubeGeometry = new THREE.CubeGeometry(.007,.007,.007);
+				var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x771E10 });
+				var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
+
+				// position the cube correctly
+				cube.position = position;
+				cube.lookAt( new THREE.Vector3(0,0,0) );
+				cube.name = 'cube';
+
+			// and add the cube to the scene
 			scene.add(cube);
 	}
 
@@ -180,11 +139,12 @@
 				"$$app_token" : "MkppVWDs5NEBZihs6wrZOO1vG"
 			}
 		}).done(function (data) {
-			console.log(data.length);
+			console.log(data);
 			data.forEach(function (point) {
-				if (point.geolocation !== undefined) {
-					createPoint(radius, segments, point.geolocation.coordinates)
-				}
+				// if (point.geolocation !== undefined) {
+					var coord = [point.reclat, point.reclong]
+					createPoint(radius, segments, coord);
+				// }
 			});
 		});
 
