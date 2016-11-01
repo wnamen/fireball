@@ -13,28 +13,34 @@
     <div class="top-bar">
       <ul data-dropdown-menu="" class="dropdown menu text-center">
         <div class="top-bar-left">
-          <li><a href="/">impactWatch</a></li>
+          <li><a href="/"><strong>impact</strong>Watch</a></li>
         </div>
         <div class="top-bar-right">
-          <li><a href="/meteors">Meteors</a></li>
-          <li><a href="/signin">Login</a></li>
-          <li><a href="/register">Register</a></li>
+          <li><a href="/meteors">meteors</a></li>
+          <li><a href="/signin">login</a></li>
+          <li><a href="/register">register</a></li>
         </div>
       </ul>
     </div>
 
     <br>
     <div id="meteor-titles" class="row">
-      <div class="large-3 columns">
+      <div class="large-2 columns">
+        <h4>ID</h4>
+      </div>
+      <div class="large-2 columns">
         <h4>Name</h4>
       </div>
-      <div class="large-3 columns">
-        <h4>Mass</h4>
+      <div class="large-2 small-2 columns">
+        <h4>Class</h4>
       </div>
-      <div class="large-3 columns">
+      <div class="large-2 small-2 columns">
+        <h4>Mass (g)</h4>
+      </div>
+      <div class="large-2 small-2 columns">
         <h4>Year</h4>
       </div>
-      <div class="large-3 columns">
+      <div class="large-2 small-2 columns">
         <h4>Coordinates</h4>
       </div>
     </div>
@@ -45,17 +51,23 @@
         <script id='meteor-template' type='text/x-handlebars-template'>
           <div class="row">
           <div class="meteor-item">
-            <div class="large-3 columns">
-            <p>{{name}}</p>
-          </div>
-            <div class="large-3 columns">
-            <p>{{mass}}</p>
-          </div>
-            <div class="large-3 columns">
-            <p>{{year}}</p>
-          </div>
-            <div class="large-3 columns">
-            <p>{{geolocation.coordinates}}</p>
+            <div class="large-2 small-2 columns">
+              <p>{{id}}</p>
+            </div>
+            <div class="large-2 small-2 columns">
+              <p>{{name}}</p>
+            </div>
+            <div class="large-2 small-2 columns">
+              <p>{{recclass}}</p>
+            </div>
+            <div class="large-2 small-2 columns">
+              <p>{{mass}}</p>
+            </div>
+            <div class="large-2 small-2 columns">
+              <p>{{year}}</p>
+            </div>
+            <div class="large-2 small-2 columns">
+              <p>({{geolocation.coordinates}})</p>
             </div>
           </div>
         </div>
