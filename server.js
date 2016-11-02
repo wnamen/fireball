@@ -74,8 +74,12 @@ var db = require('./models');
    res.sendFile(__dirname + '/views/database.html');
  })
 
+ app.get('/account', function(req, res){
+   res.sendFile(__dirname + '/views/account.html');
+ })
+
  app.get('/login', function(req, res){
-   res.sendFile(__dirname + '/views/signin.html');
+   res.sendFile(__dirname + '/views/login.html');
  })
 
  app.get('/register', function(req, res){
@@ -86,9 +90,6 @@ var db = require('./models');
  * JSON API Endpoints
  */
 
-//  app.get('/community', function(req, res){
-//    res.sendFile('views/community');
-//  })
 
 app.use( routes)
 
