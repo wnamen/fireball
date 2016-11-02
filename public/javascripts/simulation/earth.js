@@ -9,12 +9,11 @@
 	}
 
 	var width  = window.innerWidth,
-		height = window.innerHeight;
+			height = window.innerHeight;
 
 	// Earth params
 	var radius   = .5,
-		segments = 32;
-		// rotation = 6;
+			segments = 32;
 
 	var scene = new THREE.Scene();
 
@@ -30,12 +29,10 @@
 	light.position = camera.position;
 	scene.add(light);
 
-    var sphere = createSphere(radius, segments);
-	// sphere.rotation.y = rotation;
+  var sphere = createSphere(radius, segments);
 	scene.add(sphere)
 
-    var clouds = createClouds(radius, segments);
-	// clouds.rotation.y = rotation;
+  var clouds = createClouds(radius, segments);
 	scene.add(clouds)
 
 	var stars = createStars(90, 64);
@@ -49,9 +46,6 @@
 
 	function render() {
 		controls.update();
-		// sphere.rotation.y += 0.0005;
-		// clouds.rotation.y += 0.0005;
-		// points.rotation.y += 0.0005;
 		requestAnimationFrame(render);
 		renderer.render(scene, camera);
 	}
@@ -90,62 +84,60 @@
 	}
 
 	function latLongToVector3(lat, lon, radius, heigth) {
-			var phi = (lat)*Math.PI/180;
-			var theta = (lon-180)*Math.PI/180;
+		var phi = (lat)*Math.PI/180;
+		var theta = (lon-180)*Math.PI/180;
 
-			var x = -(radius+heigth) * Math.cos(phi) * Math.cos(theta);
-			var y = (radius+heigth) * Math.sin(phi);
-			var z = (radius+heigth) * Math.cos(phi) * Math.sin(theta);
+		var x = -(radius+heigth) * Math.cos(phi) * Math.cos(theta);
+		var y = (radius+heigth) * Math.sin(phi);
+		var z = (radius+heigth) * Math.cos(phi) * Math.sin(theta);
 
-			return new THREE.Vector3(x,y,z);
+		return new THREE.Vector3(x,y,z);
 	}
 
 
 	// simple function that converts the density data to the markers on screen
 	// the height of each marker is relative to the density.
 	function createPoint(radius, segments, data) {
-		console.log(data);
-			// the geometry that will contain all our cubes
-			var geom = new THREE.Geometry();
 
-				//get the data, and set the offset, we need to do this since the x,y coordinates
-				//from the data aren't in the correct format
-				var x = parseInt(data[0]);
-				var y = parseInt(data[1]);
+		// the geometry that will contain all our cubes
+		var geom = new THREE.Geometry();
 
-				// calculate the position where we need to start the cube
-				var position = latLongToVector3(x, y, 0, .5);
+		//get the data, and set the offset, we need to do this since the x,y coordinates
+		//from the data aren't in the correct format
+		var x = parseInt(data[0]);
+		var y = parseInt(data[1]);
 
-				// create the cube
-				var cubeGeometry = new THREE.CubeGeometry(.007,.007,.007);
-				var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x771E10 });
-				var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
+		// calculate the position where we need to start the cube
+		var position = latLongToVector3(x, y, 0, .5);
 
-				// position the cube correctly
-				cube.position = position;
-				cube.lookAt( new THREE.Vector3(0,0,0) );
-				cube.name = 'cube';
+		// create the cube
+		var cubeGeometry = new THREE.CubeGeometry(.007,.007,.007);
+		var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x771E10 });
+		var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
 
-			// and add the cube to the scene
-			scene.add(cube);
+		// position the cube correctly
+		cube.position = position;
+		cube.lookAt( new THREE.Vector3(0,0,0) );
+		cube.name = 'cube';
+
+		// and add the cube to the scene
+		scene.add(cube);
 	}
 
 
-		$.ajax({
-			url: "https://data.nasa.gov/resource/y77d-th95.json",
-			type: "GET",
-			data: {
-				"$limit" : 1000,
-				"$$app_token" : "MkppVWDs5NEBZihs6wrZOO1vG"
-			}
-		}).done(function (data) {
-			console.log(data);
-			data.forEach(function (point) {
-				// if (point.geolocation !== undefined) {
-					var coord = [point.reclat, point.reclong]
-					createPoint(radius, segments, coord);
-				// }
-			});
+	$.ajax({
+		url: "https://data.nasa.gov/resource/y77d-th95.json",
+		type: "GET",
+		data: {
+			"$limit" : 1000,
+			"$$app_token" : "MkppVWDs5NEBZihs6wrZOO1vG"
+		}
+	}).done(function (data) {
+		console.log(data);
+		data.forEach(function (point) {
+			var coord = [point.reclat, point.reclong]
+			createPoint(radius, segments, coord);
 		});
+	});
 
 }());
