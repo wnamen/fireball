@@ -74,7 +74,7 @@
 				map:         THREE.ImageUtils.loadTexture('../images/2_no_clouds_4k.jpg'),
 				bumpMap:     THREE.ImageUtils.loadTexture('../images/elev_bump_4k.jpg'),
 				bumpScale:   0.005,
-				name: "earth",
+				name: "permanent",
 				specularMap: THREE.ImageUtils.loadTexture('../images/water_4k.png'),
 				specular:    new THREE.Color('grey')
 			})
@@ -86,7 +86,7 @@
 			new THREE.SphereGeometry(radius + 0.003, segments, segments),
 			new THREE.MeshPhongMaterial({
 				map:         THREE.ImageUtils.loadTexture('../images/fair_clouds_4k.png'),
-				name: "clouds",
+				name: "permanent",
 				transparent: true
 			})
 		);
@@ -97,7 +97,7 @@
 			new THREE.SphereGeometry(radius, segments, segments),
 			new THREE.MeshBasicMaterial({
 				map:  THREE.ImageUtils.loadTexture('../images/galaxy_starfield.png'),
-				name: "stars",
+				name: "permanent",
 				side: THREE.BackSide
 			})
 		);
@@ -149,7 +149,7 @@
 		url: "https://data.nasa.gov/resource/y77d-th95.json",
 		type: "GET",
 		data: {
-			"$limit" : 1000,
+			"$limit" : 500,
 			"$$app_token" : "MkppVWDs5NEBZihs6wrZOO1vG"
 		}
 	}).done(function (data) {
@@ -158,11 +158,16 @@
 			var coord = [point.reclat, point.reclong]
 			createPoint(radius, segments, coord);
 		});
+
+		console.log(scene.children);
+		console.log(scene.children.length);
+
 	});
 
 	function handleNameSearch(e) {
 
 	  e.preventDefault();
+		removePoints();
 
 	  $.ajax({
 	    method: "GET",
@@ -173,7 +178,6 @@
 
 			console.log(data);
 
-			removePoints();
 
 			data.forEach(function (point) {
 				var coord = [point.reclat, point.reclong]
@@ -282,18 +286,13 @@
 	}
 
 	function removePoints() {
-		console.log(scene.children.length);
-		console.log(scene.children);
-
-		var counter = 0;
-
-		scene.children.forEach(function (child){
-			if (child.name !== "") {
-				scene.remove(child);
-				counter++
-			}
-		})
-		console.log(counter);
+		for (var i = 0; i < scene.children.length; i++) {
+			var child = scene.children[i];
+				if (child.name === "point") {
+					scene.remove(child);
+					i--
+				}
+		}
 	}
 
 }());
