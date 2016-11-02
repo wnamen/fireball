@@ -9,14 +9,12 @@ var express = require('express'),
     handlebars = require('handlebars'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
 
 var Account = require('./models/account');
-var routes = require('./routes/index');
+var routes = require('./routes/accountRoutes');
 
 var app = express();
-
-mongoose.Promise = global.Promise;
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -33,9 +31,17 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(session({
+  secret: 'the princess and the frog',
+  saveUninitialized: true,
+  resave: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+// passport.use(Account.createStrategy());
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
@@ -84,9 +90,11 @@ var db = require('./models');
 //    res.sendFile('views/community');
 //  })
 
-app.post('/register', routes.accounts.register);
-app.post('/login', routes.accounts.login);
-app.get('/login', routes.accounts.getLogin);
+app.use( routes)
+
+// app.post('/register', routes.accounts.register);
+// app.post('/login', routes.accounts.login);
+// app.get('/login', routes.accounts.getLogin);
 
 
 //  app.get('/api/ingredients', controllers.ingredients.index);
