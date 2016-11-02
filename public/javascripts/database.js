@@ -10,6 +10,22 @@ $(document).ready(function() {
   meteorHtml = $('#meteor-template').html();
   meteorTemplate = Handlebars.compile(meteorHtml);
 
+  $('#search-forms').css('display', 'none');
+
+  //added slideToggle to new recipe form
+  $('#form-toggle').click(function(e){
+    e.preventDefault();
+
+    $('#search-forms').slideToggle('slow');
+  })
+
+  $('#form-cancel').click(function(e){
+    e.preventDefault();
+
+    $('#search-forms').slideToggle('slow');
+  })
+
+
   $.ajax({
     url: "https://data.nasa.gov/resource/y77d-th95.json",
     type: "GET",
@@ -132,7 +148,7 @@ function renderMeteor(meteor) {
   $('#meteors').prepend(html);
 }
 
-function handleExportCSV(args) {
+function handleExportCSV(e,args) {
   console.log("here");
   var data, filename, link;
   var csv = convertArrayOfObjectsToCSV({
