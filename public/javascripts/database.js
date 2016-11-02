@@ -3,6 +3,8 @@ console.log("sanity check is working!!!!");
 var meteorHtml;
 var meteorTemplate;
 
+var dataCSV = [];
+
 $(document).ready(function() {
 
   meteorHtml = $('#meteor-template').html();
@@ -16,8 +18,6 @@ $(document).ready(function() {
       "$$app_token" : "MkppVWDs5NEBZihs6wrZOO1vG"
     }
   }).done(function (data) {
-    console.log(data);
-
     handleMeteors(data);
   });
 
@@ -39,7 +39,8 @@ $(document).ready(function() {
 });
 
 function handleMeteors(meteors){
-  console.log(meteors);
+  dataCSV = meteors;
+
   meteors.forEach(function(meteor) {
     meteor.year = meteor.year.slice(0,4)
     renderMeteor(meteor);
@@ -129,4 +130,57 @@ function handleYearSearch(e) {
 function renderMeteor(meteor) {
   var html = meteorTemplate(meteor);
   $('#meteors').prepend(html);
+}
+
+function handleExportCSV(args) {
+  console.log("here");
+  var data, filename, link;
+  var csv = convertArrayOfObjectsToCSV({
+      data: dataCSV
+  });
+
+  if (csv == null) return;
+
+  filename = 'meteorite-data.csv';
+
+  if (!csv.match(/^data:text\/csv/i)) {
+      csv = 'data:text/csv;charset=utf-8,' + csv;
+  }
+  data = encodeURI(csv);
+
+  link = document.createElement('a');
+  link.setAttribute('href', data);
+  link.setAttribute('download', filename);
+  link.click();
+}
+
+function convertArrayOfObjectsToCSV(args) {
+  var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+  data = args.data || null;
+  if (data == null || !data.length) {
+      return null;
+  }
+
+  columnDelimiter = args.columnDelimiter || ',';
+  lineDelimiter = args.lineDelimiter || '\n';
+
+  keys = Object.keys(data[0]);
+
+  result = '';
+  result += keys.join(columnDelimiter);
+  result += lineDelimiter;
+
+  data.forEach(function(item) {
+      ctr = 0;
+      keys.forEach(function(key) {
+          if (ctr > 0) result += columnDelimiter;
+
+          result += item[key];
+          ctr++;
+      });
+      result += lineDelimiter;
+  });
+
+  return result;
 }

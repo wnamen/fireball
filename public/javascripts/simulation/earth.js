@@ -1,7 +1,6 @@
+var dataCSV = [];
 
 (function () {
-
-	var cube;
 
 	//searches api for query using NAME SEARCH BAR
   $('#name-form').on('submit', handleNameSearch);
@@ -127,22 +126,17 @@
 		// calculate the position where we need to start the cube
 		var position = latLongToVector3(x, y, 0, .5);
 
-		// create the cube
-		// var cubeGeometry = new THREE.CubeGeometry(.007,.007,.007);
-		// var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x771E10 });
-		// var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
-
-		// create the cube
+		// create the point
 		var pointGeometry = new THREE.SphereGeometry(.005,.005,.005);
 		var pointMaterial = new THREE.MeshPhongMaterial( { color: 0x771E10 });
 		var point = new THREE.Mesh( pointGeometry, pointMaterial);
 
-		// position the cube correctly
+		// position the point correctly
 		point.position = position;
 		point.lookAt( new THREE.Vector3(0,0,0) );
 		point.name = 'point';
 
-		// and add the cube to the scene
+		// and add the point to the scene
 		scene.add(point);
 	}
 
@@ -156,6 +150,8 @@
 		}
 	}).done(function (data) {
 		console.log(data);
+		dataCSV = data;
+
 		data.forEach(function (point) {
 			var coord = [point.reclat, point.reclong]
 			createPoint(radius, segments, coord);
@@ -179,7 +175,7 @@
 		}).done(function (data) {
 
 			console.log(data);
-
+			dataCSV = data;
 
 			data.forEach(function (point) {
 				var coord = [point.reclat, point.reclong]
@@ -202,6 +198,7 @@
 		}).done(function (data) {
 
 			console.log(data);
+			dataCSV = data;
 
 			removePoints();
 
@@ -226,6 +223,7 @@
 		}).done(function (data) {
 
 			console.log(data);
+			dataCSV = data;
 
 			removePoints();
 
@@ -250,6 +248,7 @@
 		}).done(function (data) {
 
 			console.log(data);
+			dataCSV = data;
 
 			removePoints();
 
@@ -274,6 +273,7 @@
 	  }).done(function (data) {
 
 			console.log(data);
+			dataCSV = data;
 
 			removePoints();
 
@@ -298,3 +298,56 @@
 	}
 
 }());
+
+function handleExportCSV(args) {
+  console.log("here");
+  var data, filename, link;
+  var csv = convertArrayOfObjectsToCSV({
+      data: dataCSV
+  });
+
+  if (csv == null) return;
+
+  filename = 'meteorite-data.csv';
+
+  if (!csv.match(/^data:text\/csv/i)) {
+      csv = 'data:text/csv;charset=utf-8,' + csv;
+  }
+  data = encodeURI(csv);
+
+  link = document.createElement('a');
+  link.setAttribute('href', data);
+  link.setAttribute('download', filename);
+  link.click();
+}
+
+function convertArrayOfObjectsToCSV(args) {
+  var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+  data = args.data || null;
+  if (data == null || !data.length) {
+      return null;
+  }
+
+  columnDelimiter = args.columnDelimiter || ',';
+  lineDelimiter = args.lineDelimiter || '\n';
+
+  keys = Object.keys(data[0]);
+
+  result = '';
+  result += keys.join(columnDelimiter);
+  result += lineDelimiter;
+
+  data.forEach(function(item) {
+      ctr = 0;
+      keys.forEach(function(key) {
+          if (ctr > 0) result += columnDelimiter;
+
+          result += item[key];
+          ctr++;
+      });
+      result += lineDelimiter;
+  });
+
+  return result;
+}
