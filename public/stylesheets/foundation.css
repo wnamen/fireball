@@ -1201,7 +1201,7 @@ td {
 p {
   font-size: inherit;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  /*margin-bottom: 1rem;*/
   text-rendering: optimizeLegibility; }
 
 em,
@@ -1290,7 +1290,7 @@ hr {
   border-top: 0;
   border-bottom: 1px solid #cacaca;
   border-left: 0;
-  margin: 1.25rem auto;
+  /*margin: 1.25rem auto;*/
   clear: both; }
 
 ul,
