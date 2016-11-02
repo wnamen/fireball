@@ -27,3 +27,11 @@ h4 {
   font-family: 'Rationale', sans-serif;
 
 }
+
+#search-forms {
+  margin-top: 1%;
+}
+
+.btn {
+  display: none;
+}
