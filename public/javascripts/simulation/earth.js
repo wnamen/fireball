@@ -138,7 +138,7 @@
 		// position the cube correctly
 		cube.position = position;
 		cube.lookAt( new THREE.Vector3(0,0,0) );
-		cube.name = 'cube';
+		cube.name = 'point';
 
 		// and add the cube to the scene
 		scene.add(cube);
@@ -282,11 +282,18 @@
 	}
 
 	function removePoints() {
+		console.log(scene.children.length);
+		console.log(scene.children);
+
+		var counter = 0;
+
 		scene.children.forEach(function (child){
 			if (child.name !== "") {
 				scene.remove(child);
+				counter++
 			}
 		})
+		console.log(counter);
 	}
 
 }());
