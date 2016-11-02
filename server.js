@@ -70,8 +70,8 @@ var db = require('./models');
    res.sendFile(__dirname + '/views/index.html');
  });
 
- app.get('/meteors', function(req, res){
-   res.sendFile(__dirname + '/views/meteors.html');
+ app.get('/database', function(req, res){
+   res.sendFile(__dirname + '/views/database.html');
  })
 
  app.get('/login', function(req, res){

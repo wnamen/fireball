@@ -119,9 +119,6 @@
 	// the height of each marker is relative to the density.
 	function createPoint(radius, segments, data) {
 
-		// the geometry that will contain all our cubes
-		var geom = new THREE.Geometry();
-
 		//get the data, and set the offset, we need to do this since the x,y coordinates
 		//from the data aren't in the correct format
 		var x = parseInt(data[0]);
@@ -131,17 +128,22 @@
 		var position = latLongToVector3(x, y, 0, .5);
 
 		// create the cube
-		var cubeGeometry = new THREE.CubeGeometry(.007,.007,.007);
-		var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x771E10 });
-		var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
+		// var cubeGeometry = new THREE.CubeGeometry(.007,.007,.007);
+		// var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x771E10 });
+		// var cube = new THREE.Mesh( cubeGeometry, cubeMaterial);
+
+		// create the cube
+		var pointGeometry = new THREE.SphereGeometry(.005,.005,.005);
+		var pointMaterial = new THREE.MeshPhongMaterial( { color: 0x771E10 });
+		var point = new THREE.Mesh( pointGeometry, pointMaterial);
 
 		// position the cube correctly
-		cube.position = position;
-		cube.lookAt( new THREE.Vector3(0,0,0) );
-		cube.name = 'point';
+		point.position = position;
+		point.lookAt( new THREE.Vector3(0,0,0) );
+		point.name = 'point';
 
 		// and add the cube to the scene
-		scene.add(cube);
+		scene.add(point);
 	}
 
 
