@@ -11,12 +11,15 @@ var express = require('express'),
     LocalStrategy = require('passport-local').Strategy;
 
 var Account = require('./models/account');
-
 var routes = require('./routes/index');
+
 var app = express();
+
+mongoose.Promise = global.Promise;
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 // allow cross origin requests (optional)
@@ -32,7 +35,6 @@ app.use(function(req, res, next) {
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
 
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
@@ -84,7 +86,7 @@ var db = require('./models');
 
 app.post('/register', routes.accounts.register);
 app.post('/login', routes.accounts.login);
-// app.get('/login', routes.accounts.getlogin);
+app.get('/login', routes.accounts.getLogin);
 
 
 //  app.get('/api/ingredients', controllers.ingredients.index);
