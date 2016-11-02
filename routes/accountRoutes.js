@@ -15,9 +15,7 @@ router.post('/register', bodyParser.urlencoded({ extended: true }), function(req
           return res.send(err);
         }
         passport.authenticate('local')(req,res, function(){
-          redirect
-          return res.status(200).json({
-            status: "registration is successful"
+          res.redirect('/');
           });
         });
     });
@@ -38,7 +36,7 @@ router.post('/register', bodyParser.urlencoded({ extended: true }), function(req
 //     });
 // });
 
-function login (req, res, next) {
+router.post('/login', bodyParser.urlencoded({ extended: true }), function(req, res, next) {
 
     Account.authenticate()(req.body.username, req.body.password, function (err, account, options) {
         if (err) return next(err);
@@ -53,35 +51,20 @@ function login (req, res, next) {
                     success: true,
                     account: account
                 });
+                res.redirect('/');
             });
         }
     });
 
-};
-
-function getLogin(req, res) {
-    console.log(req.account);
-    if (req.account) {
-
-        return res.send({
-            success: true,
-            user: req.account
-        });
-
-    }
-    res.send({
-        success: false,
-        message: 'not authorized'
-    });
-};
+});
 
 // router.post('/signin', passport.authenticate('local'), function(req, res) {
 //     res.redirect('/');
 // });
 
-// router.get('/signout', function(req, res) {
-//     req.logout();
-//     res.redirect('/');
-// });
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 module.exports = router;

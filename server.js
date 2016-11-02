@@ -74,7 +74,7 @@ var db = require('./models');
    res.sendFile(__dirname + '/views/meteors.html');
  })
 
- app.get('/signin', function(req, res){
+ app.get('/login', function(req, res){
    res.sendFile(__dirname + '/views/signin.html');
  })
 
