@@ -1,6 +1,23 @@
 
 (function () {
 
+	var cube;
+
+	//searches api for query using NAME SEARCH BAR
+  $('#name-form').on('submit', handleNameSearch);
+
+  //searches api for query using ID SEARCH BAR
+  $('#id-form').on('submit', handleIdSearch);
+
+  //searches api for query using CLASS SEARCH BAR
+  $('#class-form').on('submit', handleClassSearch);
+
+  //searches api for query using MASS SEARCH BAR
+  $('#mass-form').on('submit', handleMassSearch);
+
+  //searches api for query using YEAR SEARCH BAR
+  $('#year-form').on('submit', handleYearSearch);
+
 	var webglEl = document.getElementById('webgl');
 
 	if (!Detector.webgl) {
@@ -57,6 +74,7 @@
 				map:         THREE.ImageUtils.loadTexture('../images/2_no_clouds_4k.jpg'),
 				bumpMap:     THREE.ImageUtils.loadTexture('../images/elev_bump_4k.jpg'),
 				bumpScale:   0.005,
+				name: "earth",
 				specularMap: THREE.ImageUtils.loadTexture('../images/water_4k.png'),
 				specular:    new THREE.Color('grey')
 			})
@@ -68,6 +86,7 @@
 			new THREE.SphereGeometry(radius + 0.003, segments, segments),
 			new THREE.MeshPhongMaterial({
 				map:         THREE.ImageUtils.loadTexture('../images/fair_clouds_4k.png'),
+				name: "clouds",
 				transparent: true
 			})
 		);
@@ -78,6 +97,7 @@
 			new THREE.SphereGeometry(radius, segments, segments),
 			new THREE.MeshBasicMaterial({
 				map:  THREE.ImageUtils.loadTexture('../images/galaxy_starfield.png'),
+				name: "stars",
 				side: THREE.BackSide
 			})
 		);
@@ -139,5 +159,134 @@
 			createPoint(radius, segments, coord);
 		});
 	});
+
+	function handleNameSearch(e) {
+
+	  e.preventDefault();
+
+	  $.ajax({
+	    method: "GET",
+	    url: "https://data.nasa.gov/resource/y77d-th95.json",
+	    dataType: 'JSON',
+	    data: $(this).serialize().slice(0,5) + $(this).serialize().charAt(5).toUpperCase() + $(this).serialize().slice(6),
+		}).done(function (data) {
+
+			console.log(data);
+
+			removePoints();
+
+			data.forEach(function (point) {
+				var coord = [point.reclat, point.reclong]
+				createPoint(radius, segments, coord);
+			});
+		})
+
+	  $(this).trigger("reset");
+	}
+
+	function handleIdSearch(e) {
+
+	  e.preventDefault();
+
+	  $.ajax({
+	    method: "GET",
+	    url: "https://data.nasa.gov/resource/y77d-th95.json",
+	    dataType: 'JSON',
+	    data: $(this).serialize(),
+		}).done(function (data) {
+
+			console.log(data);
+
+			removePoints();
+
+			data.forEach(function (point) {
+				var coord = [point.reclat, point.reclong]
+				createPoint(radius, segments, coord);
+			});
+		})
+
+	  $(this).trigger("reset");
+	}
+
+	function handleClassSearch(e) {
+
+		e.preventDefault();
+
+	  $.ajax({
+	    method: "GET",
+	    url: "https://data.nasa.gov/resource/y77d-th95.json",
+	    dataType: 'JSON',
+	    data: $(this).serialize(),
+		}).done(function (data) {
+
+			console.log(data);
+
+			removePoints();
+
+			data.forEach(function (point) {
+				var coord = [point.reclat, point.reclong]
+				createPoint(radius, segments, coord);
+			});
+		})
+
+	  $(this).trigger("reset");
+	}
+
+	function handleMassSearch(e) {
+
+	  e.preventDefault();
+
+	  $.ajax({
+	    method: "GET",
+	    url: "https://data.nasa.gov/resource/y77d-th95.json",
+	    dataType: 'JSON',
+	    data: $(this).serialize(),
+		}).done(function (data) {
+
+			console.log(data);
+
+			removePoints();
+
+			data.forEach(function (point) {
+				var coord = [point.reclat, point.reclong]
+				createPoint(radius, segments, coord);
+			});
+		})
+
+	  $(this).trigger("reset");
+	}
+
+	function handleYearSearch(e) {
+
+	  e.preventDefault();
+
+	  $.ajax({
+	    method: "GET",
+	    url: "https://data.nasa.gov/resource/y77d-th95.json",
+	    dataType: 'JSON',
+	    data: $(this).serialize() + "-01"
+	  }).done(function (data) {
+
+			console.log(data);
+
+			removePoints();
+
+			data.forEach(function (point) {
+				var coord = [point.reclat, point.reclong]
+				createPoint(radius, segments, coord);
+			});
+		});
+
+
+	  $(this).trigger("reset");
+	}
+
+	function removePoints() {
+		scene.children.forEach(function (child){
+			if (child.name !== "") {
+				scene.remove(child);
+			}
+		})
+	}
 
 }());
