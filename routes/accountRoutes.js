@@ -1,24 +1,27 @@
 var mongoose = require('mongoose');
 var express = require('express');
+var router = express.Router();
+var bodyParser = require('body-parser');
 var passport = require('passport');
 var Account = require('../models/account');
 
-function register (req, res) {
+router.post('/register', bodyParser.urlencoded({ extended: true }), function(req,res) {
     console.log("registering: " + req.body.username);
-    Account.register(new Account({
-        username: req.body.username
-      }), req.body.password, function (err, account) {
+    Account.register(new Account({ username: req.body.username}),
+      req.body.password, function (err, account) {
+        console.log("here in register!");
         if (err) {
           console.log(err);
           return res.send(err);
-        } else {
-          res.send({
-              success: true,
-              account: account
-          });
         }
+        passport.authenticate('local')(req,res, function(){
+          redirect
+          return res.status(200).json({
+            status: "registration is successful"
+          });
+        });
     });
-};
+});
 
 // router.post('/signup', function(req, res, next) {
 //   console.log("here");
@@ -81,8 +84,4 @@ function getLogin(req, res) {
 //     res.redirect('/');
 // });
 
-module.exports = {
-  register: register,
-  login: login,
-  getLogin: getLogin
-};
+module.exports = router;
