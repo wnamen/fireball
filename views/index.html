@@ -44,7 +44,7 @@
 
       <form id="mass-form">
         <div class="form-group  large-2 columns">
-          <input type="text" class="form-control" name="mass" value="" placeholder="Search by Mass" required>
+          <input type="text" class="form-control" name="mass" value="" placeholder="Search by Mass(g)" required>
         </div>
       </form>
 
@@ -53,6 +53,11 @@
           <input type="text" class="form-control" name="year" value="" placeholder="Search by Year" required>
         </div>
       </form>
+
+      <div class="form-group  large-2 columns">
+        <a class="csv-link" href='' onclick='handleExportCSV({ filename: "meteorite-data.csv" });'>Export CSV</a>
+      </div>
+
     </div>
 
 
