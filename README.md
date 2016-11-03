@@ -7,21 +7,11 @@ impactWatch captures NASA's Meteorite Landings API and renders the data into a d
 ## Author
 William Namen
 
-## Recognitions
-I want to thank the following for their work and tutorials. I would not have been able to complete this project in such a short amount of time without them!
-
-* Bjorn Sandvik - https://github.com/turban/webgl-earth &
-http://thematicmapping.org/
-* Eberhard Graether - http://egraether.com/
-* alteredq - http://alteredqualia.com/
-* mr.doob - http://mrdoob.com/
-* Chris Grimes - https://github.com/halis & http://halistechnology.com/2015/05/28/use-javascript-to-export-your-data-as-csv/
-
 ## Wireframe
 ![Site Wireframe](public/images/impactWatch-wireframe.png)
 
 ## Future Development
-Due to the short time frame of my development period (1 week), there were many features left out of the application in order to stay within the scope of the project. Expect to see the following updates over time:
+Due to the short timeframe of my given development period (1 week), there were many features left out of the application. Expect to see the following updates over time:
 
 1. The search features of the model will be eventually embedded within the model canvas. This will give users easy access to search and filter the 3D model.
 
@@ -29,13 +19,13 @@ Due to the short time frame of my development period (1 week), there were many f
 
 3. A maximize button will be added to the top right corner of the model which will hide the nav bar and provide a more immersive experience.
 
-4. More dynamic sharing options. The initial scope of the project revolved around the ability to share your particular views and filters with other researchers, however, due to limited time frame, I pivoted to an easier option, CSV exports. Buttons will be added to take screenshots of the model and share either the screenshot or particular views through social mediums.
+4. More dynamic sharing options! The initial scope of the project revolved around the ability to share your particular views and filters with other researchers, however, due to limited time frame, I pivoted to an easier option, CSV exports. Buttons will be added to take screenshots of the model and share either the screenshot or particular views through social mediums.
 
 5. Animations! I am hoping to add a simple animation showing each meteorite falling to their exact impact point on Earth.
 
 Additionally, I am always open to any suggestions to add (or fix) features in upcoming versions of this application.
 
-## Technologies Used
+## Technologies
 1. JavaScript
 2. Node.js
 3. MongoDB
@@ -43,7 +33,8 @@ Additionally, I am always open to any suggestions to add (or fix) features in up
 5. WebGL
 6. NASA's Open API - Meteorite Landings
 6. Foundation
-7. Heroku
+7. JQuery
+8. Heroku
 
 ## Code Examples
 ### Point Creation
@@ -145,3 +136,19 @@ function handleExportCSV(args) {
   link.click();
 }
 ```
+
+## Recognitions
+I want to thank the following for their work and tutorials. I would not have been able to complete this project in such a short amount of time without them!
+
+* Bjorn Sandvik - https://github.com/turban/webgl-earth &
+http://thematicmapping.org/
+* Eberhard Graether - http://egraether.com/
+* alteredq - http://alteredqualia.com/
+* mr.doob - http://mrdoob.com/
+* Chris Grimes - https://github.com/halis & http://halistechnology.com/2015/05/28/use-javascript-to-export-your-data-as-csv/
+
+Last, but not least... I want to thank my instructors for all their guidance and help throughout my bootcamp and projects. I have come a long way in 12 weeks and would not have been able to complete something as challenging as this without them!
+
+* Cory Fauver - https://github.com/cofauver
+* Brianna Veenstra -  https://github.com/bgveenstra
+* Matt Laguardia - https://github.com/mattlaguardia
