@@ -17,10 +17,7 @@ var dataCSV = [];
   //searches api for query using YEAR SEARCH BAR
   $('#year-form').on('submit', handleYearSearch);
 
-  $('#export-csv').on('click', function(e){
-    e.preventDefault();
-    handleExportCSV({ filename: "meteorite-data.csv" })
-  });
+
 
 	var webglEl = document.getElementById('webgl');
 
@@ -305,6 +302,7 @@ var dataCSV = [];
 }());
 
 function handleExportCSV(args) {
+  console.log("here");
   var data, filename, link;
   var csv = convertArrayOfObjectsToCSV({
       data: dataCSV
