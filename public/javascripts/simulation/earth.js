@@ -151,17 +151,12 @@ var dataCSV = [];
 			"$$app_token" : "MkppVWDs5NEBZihs6wrZOO1vG"
 		}
 	}).done(function (data) {
-		console.log(data);
 		dataCSV = data;
 
 		data.forEach(function (point) {
 			var coord = [point.reclat, point.reclong]
 			createPoint(radius, segments, coord);
 		});
-
-		console.log(scene.children);
-		console.log(scene.children.length);
-
 	});
 
 	function handleNameSearch(e) {
@@ -176,7 +171,6 @@ var dataCSV = [];
 	    data: $(this).serialize().slice(0,5) + $(this).serialize().charAt(5).toUpperCase() + $(this).serialize().slice(6),
 		}).done(function (data) {
 
-			console.log(data);
 			dataCSV = data;
 
 			data.forEach(function (point) {
@@ -199,7 +193,6 @@ var dataCSV = [];
 	    data: $(this).serialize(),
 		}).done(function (data) {
 
-			console.log(data);
 			dataCSV = data;
 
 			removePoints();
@@ -224,7 +217,6 @@ var dataCSV = [];
 	    data: $(this).serialize(),
 		}).done(function (data) {
 
-			console.log(data);
 			dataCSV = data;
 
 			removePoints();
@@ -249,7 +241,6 @@ var dataCSV = [];
 	    data: $(this).serialize(),
 		}).done(function (data) {
 
-			console.log(data);
 			dataCSV = data;
 
 			removePoints();
@@ -274,7 +265,6 @@ var dataCSV = [];
 	    data: $(this).serialize() + "-01"
 	  }).done(function (data) {
 
-			console.log(data);
 			dataCSV = data;
 
 			removePoints();
@@ -302,7 +292,6 @@ var dataCSV = [];
 }());
 
 function handleExportCSV(args) {
-  console.log("here");
   var data, filename, link;
   var csv = convertArrayOfObjectsToCSV({
       data: dataCSV
