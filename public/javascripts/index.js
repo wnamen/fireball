@@ -8,9 +8,13 @@ $(document).ready(function() {
     $('#simulation-forms').slideToggle('slow');
   })
 
-  $('#form-cancel').click(function(e){
+  $('#close-btn').click(function(e){
     e.preventDefault();
 
     $('#simulation-forms').slideToggle('slow');
   })
+
+  // $('#welcome-modal.close-reveal-modal').trigger('click');
+  $('#welcome-modal').foundation('reveal', 'close');
+
 });

@@ -19,7 +19,7 @@ $(document).ready(function() {
     $('#search-forms').slideToggle('slow');
   })
 
-  $('#form-cancel').click(function(e){
+  $('#close-btn').click(function(e){
     e.preventDefault();
 
     $('#search-forms').slideToggle('slow');

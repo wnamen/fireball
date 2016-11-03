@@ -56,5 +56,9 @@ hr {
 }
 
 .csv-link {
-  font-size: 26px;
+  font-size: 22px;
+}
+
+#close-btn {
+  font-size: 21px;
 }
